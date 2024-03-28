@@ -45,7 +45,9 @@ class ProjectController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:png,jpg,jpeg',
             'is_published' => 'nullable|boolean',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|exists:technologies,id'
+
         ], [
             'title.required' => 'Il titolo é obbligatorio',
             'title.min' => 'Il titolo deve esssere almeno :min caratteri',
@@ -55,7 +57,8 @@ class ProjectController extends Controller
             'image.mimes' => 'Le estensioni valide sono :mimes',
             'is_published.coolean' => 'Il valore del campo non é valido',
             'content.required' => 'Il contenuto é obbligatorio',
-            'type_id.exists' => 'Tipo non valido'
+            'type_id.exists' => 'Tipo non valido',
+            'technologies.exists' => 'Tecnologia selezionata non valida'
         ]);
 
         $data = $request->all();
@@ -76,6 +79,10 @@ class ProjectController extends Controller
         }
 
         $project->save();
+
+        if(Arr::exists($data, 'technologies')){
+            $project->technologies()->attach($data['technologies']);
+        }
 
         return to_route('admin.projects.show', $project)->with('message', 'Proggetto creato con successo')->with('type', 'success');
     }
@@ -108,7 +115,8 @@ class ProjectController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:png,jpg,jpeg',
             'is_published' => 'nullable|boolean',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|exists:technologies,id'
         ], [
             'title.required' => 'Il titolo é obbligatorio',
             'title.min' => 'Il titolo deve esssere almeno :min caratteri',
@@ -118,7 +126,8 @@ class ProjectController extends Controller
             'image.mimes' => 'Le estensioni valide sono :mimes',
             'is_published.coolean' => 'Il valore del campo non é valido',
             'content.required' => 'Il contenuto é obbligatorio',
-            'type_id.exists' => 'Tipo non valido'
+            'type_id.exists' => 'Tipo non valido',
+            'technologies.exists' => 'Tecnologia selezionata non valida'
         ]);
         
         $data = $request->all();
