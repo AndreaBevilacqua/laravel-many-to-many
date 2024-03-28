@@ -15,9 +15,18 @@
     <img src="{{ asset('storage/' . $project->image) }}" alt="{{$project->title}}" class="me-2 float-start">
     @endif
     <p>{{ $project->content }}</p>
-    <div>
-        <strong>Creato il:</strong> {{ $project->getFormattedDate('created_at', 'd-m-Y H:i:s') }}
-        <strong>Ultima modifica il:</strong> {{ $project->getFormattedDate('updated_at', 'd-m-Y H:i:s') }}
+    <div class="d-flex justify-content-between">
+        <div>
+            <strong>Creato il:</strong> {{ $project->getFormattedDate('created_at', 'd-m-Y H:i:s') }}
+            <strong>Ultima modifica il:</strong> {{ $project->getFormattedDate('updated_at', 'd-m-Y H:i:s') }}
+        </div>
+        <div>
+            @forelse($project->technologies as $technology)
+            <span class="badge rounded-pill text-bg-{{ $technology->color}}">{{ $technology->label }}</span>
+            @empty 
+             Nulla
+            @endforelse
+        </div>
     </div>
 </div>
 
