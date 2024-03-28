@@ -68,14 +68,21 @@
                 class="img-fluid" alt="immagine post" id="preview">
             </div>
         </div>
-        <div class="col-12 d-flex justify-content-end">
-            <div class="form-check">
+        <div class="col-10">
+            @foreach ($technologies as $technology)
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="technologies[]" id="{{ "technology-$technology->id" }}" value="{{ $technology->id }}">
+                <label class="form-check-label" for="{{ "technology-$technology->id" }}"> {{ $technology->label }}</label>
+              </div>
+            @endforeach
+        </div>
+        <div class="col-2 d-flex justify-content-between">
+            <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="is_published" name="is_published" @if(old('is_published', $project->is_published)) checked @endif>
                 <label class="form-check-label" for="is_published">
                   Pubblicato
                 </label>
-              </div>
-              
+            </div>
         </div>
     </div>
     <hr>
