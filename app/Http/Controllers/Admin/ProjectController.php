@@ -102,7 +102,8 @@ class ProjectController extends Controller
     {
 
         $types = Type::select('label', 'id')->get();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::select('label', 'id')->get();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
